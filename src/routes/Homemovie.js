@@ -17,21 +17,26 @@ const Homemovie = () => {
     getMovies();
   }, []);
   return (
-    <div>
-      {loading ? <h2>Loading...</h2> : null}
-      <ul>
-        {movies.map((movie) => (
-          <Movie
-            key={movie.id}
-            id={movie.id}
-            coverImg={movie.medium_cover_image}
-            title={movie.title}
-            summary={movie.summary}
-            genres={movie.genres}
-            year={movie.year}
-          />
-        ))}
-      </ul>
+    <div className="bg-gray-200 container mx-auto px-4 py-8">
+      {loading ? (
+        <div className="flex justify-center items-center min-h-[400px]">
+          <h2 className="text-2xl font-bold text-gray-600">Loading...</h2>
+        </div>
+      ) : (
+        <div className="grid gap-8 grid-cols-1 max-w-5xl mx-auto">
+          {movies.map((movie) => (
+            <Movie
+              key={movie.id}
+              id={movie.id}
+              coverImg={movie.medium_cover_image}
+              title={movie.title}
+              summary={movie.summary}
+              genres={movie.genres}
+              year={movie.year}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -12,6 +12,10 @@ function Todo() {
     setTodo("");
   };
 
+  const deleteTodo = (index) => {
+    setTodos((currentArr) => currentArr.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="max-w-md mx-auto space-y-6">
       <h2 className="text-2xl font-bold text-center text-gray-800">
@@ -37,9 +41,15 @@ function Todo() {
         {todos.map((item, i) => (
           <li
             key={i}
-            className="p-3 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+            className="p-3 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex justify-between items-center"
           >
-            {item}
+            <span>{item}</span>
+            <button
+              onClick={() => deleteTodo(i)}
+              className="px-2 py-1 text-red-500 hover:bg-red-50 rounded-md transition-colors"
+            >
+              ❌
+            </button>
           </li>
         ))}
       </ul>

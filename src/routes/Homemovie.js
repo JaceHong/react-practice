@@ -1,21 +1,30 @@
 import { useState, useEffect } from "react";
 import Movie from "../components/Movie";
+import axios from "axios";
 
 const Homemovie = () => {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
+  // const getMovies = async () => {
+  //   const json = await (
+  //     await fetch(`https://yts.mx/api/v2/list_movies.json`)
+  //   ).json();
+  //   setMovies(json.data.movies);
+  //   setLoading(false);
+  // };
   const getMovies = async () => {
-    const json = await (
-      await fetch(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
-      )
-    ).json();
-    setMovies(json.data.movies);
+    const {
+      data: {
+        data: { movies },
+      },
+    } = await axios.get(`https://yts-proxy.now.sh/list_movies.json`);
+    setMovies(movies);
     setLoading(false);
   };
   useEffect(() => {
     getMovies();
   }, []);
+
   return (
     <div className="bg-gray-200 container mx-auto px-4 py-8">
       {loading ? (
